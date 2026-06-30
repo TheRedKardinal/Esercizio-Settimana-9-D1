@@ -6,8 +6,10 @@ function ListRender() {
     <Row>
       {books.map((book) => (
         <Col xs={12} md={4}>
-          <img src={book.img} />
-          <h2>{book.title}</h2>
+          <div className="book-card">
+            <img src={book.img} />
+            <h2 className="text-black m-3">{book.title}</h2>
+          </div>
         </Col>
       ))}
     </Row>
