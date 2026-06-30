@@ -1,8 +1,9 @@
 import books from "../dati/fantasy.json";
-import { Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
 function ListRender() {
   return (
+    <Container fluid>
     <Row className="g-3">
       {books.map((book) => (
         <Col key={book.asin} xs={12} md={4}>
@@ -13,6 +14,7 @@ function ListRender() {
         </Col>
       ))}
     </Row>
+    </Container>
   );
 }
 
