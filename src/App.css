@@ -2,14 +2,21 @@
   border: 0;
 }
 
-img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-}
-
 .book-card {
   border: 1px solid lightgray;
   background-color: #f5f5f5;
   border-radius: 4px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.book-card img {
+  width: 100%;
+  height: 450px;
+  object-fit: cover;
+}
+
+footer p {
+  height: 5vh;
 }
