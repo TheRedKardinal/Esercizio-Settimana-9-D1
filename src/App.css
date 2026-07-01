@@ -1,5 +1,12 @@
 #root {
   border: 0;
+  text-align: center;
+  margin: 0 auto;
+  width: 90%;
+}
+
+.hero {
+  padding: 6rem 0;
 }
 
 .book-card {
@@ -9,12 +16,11 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.book-card img {
-  width: 100%;
-  height: 450px;
-  object-fit: cover;
+  img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+  }
 }
 
 footer p {

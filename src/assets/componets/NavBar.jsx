@@ -7,7 +7,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 function NavbarRender(props) {
   return (
     <Navbar bg="dark" data-bs-theme="dark">
-      <Container className="my-1 d-flex justify-content-between">
+      <Container fluid className="my-1 d-flex px-3 justify-content-between">
         <Navbar.Brand href="#home">EpiBooks</Navbar.Brand>
         <Form.Group>
           <Form.Control
