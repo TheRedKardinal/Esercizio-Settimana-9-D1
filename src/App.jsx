@@ -4,10 +4,11 @@ import HeroRender from "./assets/componets/Hero";
 import ListRender from "./assets/componets/List";
 import FooterRender from "./assets/componets/Footer";
 import { useState } from "react";
+import books from "./assets/dati/fantasy.json";
 
 const App = function () {
   const [query, setQuery] = useState("");
-  const filteredBooks = books.filter(book);
+  const filteredBooks = books.filter((book) => book.title.includes(query));
   return (
     <>
       <header>
@@ -15,7 +16,7 @@ const App = function () {
       </header>
       <main>
         <HeroRender />
-        <ListRender />
+        <ListRender books={filteredBooks} />
       </main>
       <footer>
         <FooterRender />
