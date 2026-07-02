@@ -1,15 +1,29 @@
+header {
+  width: 100%;
+}
+
 body {
+  background-color: lightgray;
 }
 
 #root {
   border: 0;
   text-align: center;
   margin: 0 auto;
-  width: 80%;
 }
 
 .hero {
   padding: 6rem 0;
+  background-color: rgba(179, 7, 7, 0.849) !important;
+}
+
+.section-list {
+  width: 80%;
+}
+
+.section-list h2 {
+  margin: 1.5rem 0;
+  text-align: start;
 }
 
 .book-card {

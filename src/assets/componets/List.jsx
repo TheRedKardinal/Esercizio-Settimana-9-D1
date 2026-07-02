@@ -2,7 +2,8 @@ import { Container, Row, Col } from "react-bootstrap";
 
 function ListRender(props) {
   return (
-    <Container fluid>
+    <Container fluid className="section-list">
+      <h2>Lista libri</h2>
       <Row className="g-3">
         {props.books.map((book) => (
           <Col key={book.asin} xs={12} md={3}>
