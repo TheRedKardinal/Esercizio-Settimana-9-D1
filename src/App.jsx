@@ -8,7 +8,10 @@ import books from "./assets/dati/fantasy.json";
 
 const App = function () {
   const [query, setQuery] = useState("");
-  const filteredBooks = books.filter((book) => book.title.includes(query));
+  const [selectedBookId, setSelectedBookId] = useState(null);
+  const filteredBooks = books.filter((book) =>
+    book.title.toLowerCase().includes(query.toLowerCase()),
+  );
   return (
     <>
       <header>
@@ -16,7 +19,11 @@ const App = function () {
       </header>
       <main>
         <HeroRender />
-        <ListRender books={filteredBooks} />
+        <ListRender
+          books={filteredBooks}
+          selectedBookId={selectedBookId}
+          onSelectBook={setSelectedBookId}
+        />
       </main>
       <footer>
         <FooterRender />

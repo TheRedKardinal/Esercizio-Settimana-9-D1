@@ -39,9 +39,9 @@ body {
   }
   h2 {
     font-size: 1rem;
-    overflow: hidden;
     white-space: normal;
     height: 80px;
+    text-align: center;
   }
 }
 
