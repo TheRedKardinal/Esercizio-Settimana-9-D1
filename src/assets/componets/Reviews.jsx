@@ -70,6 +70,29 @@ class Reviews extends Component {
               <b>{comment.author}</b> - voto: {comment.rate}
             </p>
             <p>{comment.comment}</p>
+            {this.props.bookId && (
+              <form onSubmit={this.handleSubmit}>
+                <textarea
+                  value={this.state.commentText}
+                  onChange={(e) =>
+                    this.setState({ commentText: e.target.value })
+                  }
+                  placeholder="Scrivi una recensione..."
+                  required
+                />
+                <select
+                  value={this.state.rate}
+                  onChange={(e) => this.setState({ rate: e.target.value })}
+                >
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                </select>
+                <button type="submit">Invia recensione</button>
+              </form>
+            )}
           </div>
         ))}
       </div>
