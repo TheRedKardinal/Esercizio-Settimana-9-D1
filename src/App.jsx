@@ -5,6 +5,7 @@ import ListRender from "./assets/componets/List";
 import FooterRender from "./assets/componets/Footer";
 import { useState } from "react";
 import books from "./assets/dati/fantasy.json";
+import Reviews from "./assets/componets/Reviews";
 
 const App = function () {
   const [query, setQuery] = useState("");
