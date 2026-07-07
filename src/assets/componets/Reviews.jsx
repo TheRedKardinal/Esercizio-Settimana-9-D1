@@ -5,6 +5,8 @@ class Reviews extends Component {
     super(props);
     this.state = {
       comments: [],
+      commentText: "",
+      rate: 5,
     };
   }
 
@@ -27,6 +29,25 @@ class Reviews extends Component {
       });
   };
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    fetch(`${import.meta.env.VITE_API_URL}/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+      },
+      body: JSON.stringify({
+        comment: this.state.commentText,
+        rate: Number(this.state.rate),
+        elementId: this.props.bookId,
+      }),
+    }).then(() => {
+      this.setState({ commentText: "" });
+      this.fetchComments();
+    });
+  };
+
   componentDidUpdate(prevProps) {
     if (prevProps.bookId !== this.props.bookId) {
       this.fetchComments();
@@ -37,7 +58,9 @@ class Reviews extends Component {
     return (
       <div className="section-reviews">
         <h2>Recensioni</h2>
-        {!this.props.bookId && <p>Seleziona un libro per vedere le recensioni.</p>}
+        {!this.props.bookId && (
+          <p>Seleziona un libro per vedere le recensioni.</p>
+        )}
         {this.props.bookId && this.state.comments.length === 0 && (
           <p>Nessuna recensione per questo libro. Scrivi la prima!</p>
         )}
