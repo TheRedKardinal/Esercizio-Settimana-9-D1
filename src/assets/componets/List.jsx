@@ -6,7 +6,7 @@ function ListRender(props) {
       <h2>Lista libri</h2>
       <Row className="g-3">
         {props.books.map((book) => (
-          <Col key={book.asin} xs={12} md={3}>
+          <Col key={book.asin} xs={12} md={4}>
             <div
               className="book-card gap-4"
               onClick={() => props.onSelectBook(book.asin)}
