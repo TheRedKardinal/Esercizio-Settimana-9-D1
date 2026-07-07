@@ -1,21 +1,16 @@
-import { Component } from "react";
+import { useEffect, useState } from "react";
 import { Trash } from "react-bootstrap-icons";
 
-class Reviews extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      comments: [],
-      commentText: "",
-      rate: 5,
-    };
-  }
+function Reviews({ bookId }) {
+  const [comments, setComments] = useState([]);
+  const [commentText, setCommentText] = useState("");
+  const [rate, setRate] = useState(5);
 
-  componentDidMount() {
-    this.fetchComments();
-  }
+  useEffect(() => {
+    fetchComments();
+  }, [bookId]);
 
-  fetchComments = () => {
+  const fetchComments = () => {
     fetch(`${import.meta.env.VITE_API_URL}/comments`, {
       headers: {
         Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
@@ -24,13 +19,13 @@ class Reviews extends Component {
       .then((res) => res.json())
       .then((data) => {
         const filtered = data.filter(
-          (comment) => comment.elementId === this.props.bookId,
+          (comment) => comment.elementId === bookId,
         );
-        this.setState({ comments: filtered });
+        setComments(filtered);
       });
   };
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     fetch(`${import.meta.env.VITE_API_URL}/comments`, {
       method: "POST",
@@ -39,84 +34,71 @@ class Reviews extends Component {
         Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
       },
       body: JSON.stringify({
-        comment: this.state.commentText,
-        rate: Number(this.state.rate),
-        elementId: this.props.bookId,
+        comment: commentText,
+        rate: Number(rate),
+        elementId: bookId,
       }),
     }).then(() => {
-      this.setState({ commentText: "" });
-      this.fetchComments();
+      setCommentText("");
+      fetchComments();
     });
   };
 
-  handleDelete = (commentId) => {
+  const handleDelete = (commentId) => {
     fetch(`${import.meta.env.VITE_API_URL}/comments/${commentId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
       },
     }).then(() => {
-      this.fetchComments();
+      fetchComments();
     });
   };
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.bookId !== this.props.bookId) {
-      this.fetchComments();
-    }
-  }
-
-  render() {
-    return (
-      <div className="section-reviews">
-        <h2>Recensioni</h2>
-        {!this.props.bookId && (
-          <p>Seleziona un libro per vedere le recensioni.</p>
-        )}
-        {this.props.bookId && this.state.comments.length === 0 && (
-          <p>Nessuna recensione per questo libro. Scrivi la prima!</p>
-        )}
-        {this.state.comments.map((comment) => (
-          <div key={comment._id} className="review-card">
-            <div>
-              <p>
-                <b>{comment.author}</b> - voto: {comment.rate}
-              </p>
-              <p>{comment.comment}</p>
-            </div>
-            <button
-              onClick={() => this.handleDelete(comment._id)}
-              aria-label="Elimina recensione"
-              className="btn-delete"
-            >
-              <Trash />
-            </button>
+  return (
+    <div className="section-reviews">
+      <h2>Recensioni</h2>
+      {!bookId && <p>Seleziona un libro per vedere le recensioni.</p>}
+      {bookId && comments.length === 0 && (
+        <p>Nessuna recensione per questo libro. Scrivi la prima!</p>
+      )}
+      {comments.map((comment) => (
+        <div key={comment._id} className="review-card">
+          <div>
+            <p>
+              <b>{comment.author}</b> - voto: {comment.rate}
+            </p>
+            <p>{comment.comment}</p>
           </div>
-        ))}
-        {this.props.bookId && (
-          <form onSubmit={this.handleSubmit}>
-            <textarea
-              value={this.state.commentText}
-              onChange={(e) => this.setState({ commentText: e.target.value })}
-              placeholder="Scrivi una recensione..."
-              required
-            />
-            <select
-              value={this.state.rate}
-              onChange={(e) => this.setState({ rate: e.target.value })}
-            >
-              <option value={1}>1</option>
-              <option value={2}>2</option>
-              <option value={3}>3</option>
-              <option value={4}>4</option>
-              <option value={5}>5</option>
-            </select>
-            <button type="submit">Invia recensione</button>
-          </form>
-        )}
-      </div>
-    );
-  }
+          <button
+            onClick={() => handleDelete(comment._id)}
+            aria-label="Elimina recensione"
+            className="btn-delete"
+          >
+            <Trash />
+          </button>
+        </div>
+      ))}
+      {bookId && (
+        <form onSubmit={handleSubmit}>
+          <textarea
+            value={commentText}
+            onChange={(e) => setCommentText(e.target.value)}
+            placeholder="Scrivi una recensione..."
+            required
+          />
+          <select value={rate} onChange={(e) => setRate(e.target.value)}>
+            <option value={1}>1</option>
+            <option value={2}>2</option>
+            <option value={3}>3</option>
+            <option value={4}>4</option>
+            <option value={5}>5</option>
+          </select>
+          <button type="submit">Invia recensione</button>
+        </form>
+      )}
+    </div>
+  );
 }
 
 export default Reviews;
