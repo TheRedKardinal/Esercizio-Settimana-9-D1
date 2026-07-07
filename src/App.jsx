@@ -6,6 +6,7 @@ import FooterRender from "./assets/componets/Footer";
 import { useState } from "react";
 import books from "./assets/dati/fantasy.json";
 import Reviews from "./assets/componets/Reviews";
+import { Row, Col } from "react-bootstrap";
 
 const App = function () {
   const [query, setQuery] = useState("");
@@ -20,11 +21,20 @@ const App = function () {
       </header>
       <main>
         <HeroRender />
-        <ListRender
-          books={filteredBooks}
-          selectedBookId={selectedBookId}
-          onSelectBook={setSelectedBookId}
-        />
+        <Row className="mx-0">
+          <Col md={9}>
+            <ListRender
+              books={filteredBooks}
+              selectedBookId={selectedBookId}
+              onSelectBook={setSelectedBookId}
+            />
+          </Col>
+          <Col md={3}>
+            <aside>
+              <Reviews bookId={selectedBookId} />
+            </aside>
+          </Col>
+        </Row>
       </main>
       <footer>
         <FooterRender />

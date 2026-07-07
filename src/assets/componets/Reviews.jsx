@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { Trash } from "react-bootstrap-icons";
 
 class Reviews extends Component {
   constructor(props) {
@@ -48,6 +49,17 @@ class Reviews extends Component {
     });
   };
 
+  handleDelete = (commentId) => {
+    fetch(`${import.meta.env.VITE_API_URL}/comments/${commentId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${import.meta.env.VITE_API_TOKEN}`,
+      },
+    }).then(() => {
+      this.fetchComments();
+    });
+  };
+
   componentDidUpdate(prevProps) {
     if (prevProps.bookId !== this.props.bookId) {
       this.fetchComments();
@@ -66,19 +78,26 @@ class Reviews extends Component {
         )}
         {this.state.comments.map((comment) => (
           <div key={comment._id} className="review-card">
-            <p>
-              <b>{comment.author}</b> - voto: {comment.rate}
-            </p>
-            <p>{comment.comment}</p>
+            <div>
+              <p>
+                <b>{comment.author}</b> - voto: {comment.rate}
+              </p>
+              <p>{comment.comment}</p>
+            </div>
+            <button
+              onClick={() => this.handleDelete(comment._id)}
+              aria-label="Elimina recensione"
+              className="btn-delete"
+            >
+              <Trash />
+            </button>
           </div>
         ))}
         {this.props.bookId && (
           <form onSubmit={this.handleSubmit}>
             <textarea
               value={this.state.commentText}
-              onChange={(e) =>
-                this.setState({ commentText: e.target.value })
-              }
+              onChange={(e) => this.setState({ commentText: e.target.value })}
               placeholder="Scrivi una recensione..."
               required
             />

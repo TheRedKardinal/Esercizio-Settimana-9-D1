@@ -45,6 +45,64 @@ body {
   }
 }
 
+aside {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: wheat;
+  border-radius: 8px;
+  div .review-card {
+    background-color: whitesmoke;
+    border-radius: 8px;
+    white-space: normal;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.75rem;
+    p:first-of-type {
+      font-size: 0.8rem;
+    }
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    div {
+      display: flex;
+    }
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid lightgray;
+      border-radius: 4px;
+      padding: 0.4rem;
+    }
+    button {
+      width: 100%;
+      background-color: rgba(179, 7, 7, 0.849);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 0.5rem 1.5rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: rgba(179, 7, 7, 1);
+    }
+  }
+  .btn-delete {
+    background-color: rgba(179, 7, 7, 0.849);
+
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.1rem 0.2rem;
+    cursor: pointer;
+  }
+}
+
 footer p {
-  height: 5vh;
+  height: 10vh;
+  margin-bottom: 0;
 }
